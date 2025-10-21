@@ -1,0 +1,148 @@
+[
+  {
+    "id": "p-001",
+    "slug": "aero-soft-tee",
+    "title": "Aero Soft Tee",
+    "description": "Feather-light tee with breathable weave for all-day comfort.",
+    "price": 129900,
+    "compareAtPrice": 149900,
+  "images": [
+    "https://picsum.photos/id/1005/1200/900",
+    "https://picsum.photos/id/1006/1200/900"
+  ],
+    "category": "men",
+    "brand": "Grays Studio",
+    "badges": ["New", "Sale"],
+    "createdAt": "2025-10-10T00:00:00.000Z"
+  },
+  {
+    "id": "p-002",
+    "slug": "linen-camp-shirt",
+    "title": "Linen Camp Shirt",
+    "description": "Relaxed, breathable linen for warm days and cool nights.",
+    "price": 139900,
+  "images": [
+    "https://picsum.photos/id/1011/1200/900",
+    "https://picsum.photos/id/1012/1200/900"
+  ],
+    "category": "men",
+    "brand": "Grays Studio",
+    "badges": ["Best"],
+    "createdAt": "2025-09-28T00:00:00.000Z"
+  },
+  {
+    "id": "p-003",
+    "slug": "cloud-knit-hoodie",
+    "title": "Cloud Knit Hoodie",
+    "description": "Ultra-soft brushed knit with a clean, modern silhouette.",
+    "price": 149900,
+  "images": [
+    "https://picsum.photos/id/1050/1200/900",
+    "https://picsum.photos/id/1051/1200/900"
+  ],
+    "category": "women",
+    "brand": "Grays Studio",
+    "badges": ["Hot"],
+    "createdAt": "2025-10-05T00:00:00.000Z"
+  },
+  {
+    "id": "p-004",
+    "slug": "everyday-tote",
+    "title": "Everyday Tote",
+    "description": "Minimal carry-all with internal organization.",
+    "price": 119900,
+  "images": [
+    "https://picsum.photos/id/1062/1200/900",
+    "https://picsum.photos/id/1063/1200/900"
+  ],
+    "category": "accessories",
+    "brand": "Grays Lab",
+    "createdAt": "2025-08-14T00:00:00.000Z"
+  },
+  {
+    "id": "p-005",
+    "slug": "stride-sneaker",
+    "title": "Stride Sneaker",
+    "description": "Cushioned sole with responsive bounce for daily miles.",
+    "price": 149900,
+    "compareAtPrice": 159900,
+  "images": [
+    "https://picsum.photos/id/1033/1200/900",
+    "https://picsum.photos/id/1034/1200/900"
+  ],
+    "category": "shoes",
+    "brand": "Grays Motion",
+    "badges": ["Sale"],
+    "createdAt": "2025-09-10T00:00:00.000Z"
+  },
+  {
+    "id": "p-006",
+    "slug": "merino-crew",
+    "title": "Merino Crew",
+    "description": "Temperature-regulating sweater in fine merino.",
+    "price": 139900,
+  "images": [
+    "https://picsum.photos/id/1027/1200/900",
+    "https://picsum.photos/id/1028/1200/900"
+  ],
+    "category": "women",
+    "brand": "Grays Studio",
+    "createdAt": "2025-07-22T00:00:00.000Z"
+  },
+  {
+    "id": "p-007",
+    "slug": "tech-chino",
+    "title": "Tech Chino",
+    "description": "Wrinkle-resistant chino with stretch and water-repellency.",
+    "price": 134900,
+  "images": [
+    "https://picsum.photos/id/1020/1200/900",
+    "https://picsum.photos/id/1021/1200/900"
+  ],
+    "category": "men",
+    "brand": "Grays Motion",
+    "createdAt": "2025-09-02T00:00:00.000Z"
+  },
+  {
+    "id": "p-008",
+    "slug": "cozy-socks-3pack",
+    "title": "Cozy Socks 3‑Pack",
+    "description": "Soft ribbed socks with cushioned heel and toe.",
+    "price": 109900,
+  "images": [
+    "https://picsum.photos/id/1069/1200/900",
+    "https://picsum.photos/id/1070/1200/900"
+  ],
+    "category": "accessories",
+    "brand": "Grays Essentials",
+    "createdAt": "2025-10-01T00:00:00.000Z"
+  },
+  {
+    "id": "p-009",
+    "slug": "feather-puffer",
+    "title": "Feather Puffer",
+    "description": "Warmth without bulk with recycled fill.",
+    "price": 149900,
+  "images": [
+    "https://picsum.photos/id/1012/1200/900",
+    "https://picsum.photos/id/1013/1200/900"
+  ],
+    "category": "women",
+    "brand": "Grays Studio",
+    "createdAt": "2025-10-12T00:00:00.000Z"
+  },
+  {
+    "id": "p-010",
+    "slug": "travel-cap",
+    "title": "Travel Cap",
+    "description": "Packable cap with moisture-wicking band.",
+    "price": 119900,
+  "images": [
+    "https://picsum.photos/id/1003/1200/900",
+    "https://picsum.photos/id/1004/1200/900"
+  ],
+    "category": "accessories",
+    "brand": "Grays Lab",
+    "createdAt": "2025-08-01T00:00:00.000Z"
+  }
+]
