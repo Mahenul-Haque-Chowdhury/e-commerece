@@ -26,6 +26,6 @@ export const useCart = create<CartState>()(
       setQty: (productId, qty) => set({ items: get().items.map((i) => (i.productId === productId ? { ...i, quantity: Math.max(1, qty) } : i)) }),
       clear: () => set({ items: [] }),
     }),
-    { name: "grays-cart" }
+    { name: "wesell-cart" }
   )
 );

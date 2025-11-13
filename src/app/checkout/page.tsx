@@ -3,11 +3,28 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/stores/cart";
 import products from "@/data/products.json";
-import { formatBDT } from "@/lib/utils";
+import { formatCurrency } from "@/lib/currency";
+import { useCurrency } from "@/stores/currency";
 import { useMemo, useState } from "react";
+
+const shippingOptions = [
+  {
+    id: "express" as const,
+    label: "Express air (2-day)",
+    description: "Nationwide delivery with signature confirmation.",
+    fee: 2500,
+  },
+  {
+    id: "standard" as const,
+    label: "Ground shipping (3-5 days)",
+    description: "UPS/FedEx ground network across the contiguous U.S.",
+    fee: 1500,
+  },
+];
 
 export default function CheckoutPage() {
   const { items, clear } = useCart();
+  const { currency } = useCurrency();
   const detailed = useMemo(
     () =>
       items.map((i) => ({
@@ -20,9 +37,8 @@ export default function CheckoutPage() {
     () => detailed.reduce((acc, d) => acc + d.product.price * d.item.quantity, 0),
     [detailed]
   );
-  // Shipping options (BDT): Dhaka city 70৳, Outside Dhaka 150৳
-  const [shippingOption, setShippingOption] = useState<"dhaka" | "outside">("dhaka");
-  const shipping = useMemo(() => (shippingOption === "dhaka" ? 7000 : 15000), [shippingOption]); // cents
+  const [shippingOption, setShippingOption] = useState<(typeof shippingOptions)[number]["id"]>("express");
+  const shipping = useMemo(() => shippingOptions.find((opt) => opt.id === shippingOption)?.fee ?? 0, [shippingOption]);
   const total = subtotal + shipping;
 
   const [createAccount, setCreateAccount] = useState(true);
@@ -131,43 +147,38 @@ export default function CheckoutPage() {
                     <div className="font-medium">{product.title}</div>
                     <div className="text-xs opacity-70">× {item.quantity}</div>
                   </div>
-                  <div className="px-4 py-3 text-right font-medium">{formatBDT(product.price * item.quantity)}</div>
+                  <div className="px-4 py-3 text-right font-medium">{formatCurrency(product.price * item.quantity, currency)}</div>
                 </div>
               ))}
             </div>
             {/* Subtotal row */}
             <div className="grid grid-cols-[auto_1fr_auto]">
               <div className="px-4 py-3 col-span-2 text-sm">Subtotal</div>
-              <div className="px-4 py-3 text-sm font-medium text-right">{formatBDT(subtotal)}</div>
+              <div className="px-4 py-3 text-sm font-medium text-right">{formatCurrency(subtotal, currency)}</div>
             </div>
             {/* Shipping options */}
             <div className="px-4 py-3 border-t space-y-2">
               <div className="text-sm font-semibold mb-1">Shipping</div>
-              <label className="flex items-center gap-2 text-sm border rounded-md px-3 py-2">
-                <input
-                  type="radio"
-                  name="shipping"
-                  checked={shippingOption === "dhaka"}
-                  onChange={() => setShippingOption("dhaka")}
-                />
-                <span className="flex-1">ঢাকা সিটির মধ্যে</span>
-                <span className="font-medium">{formatBDT(7000)}</span>
-              </label>
-              <label className="flex items-center gap-2 text-sm border rounded-md px-3 py-2">
-                <input
-                  type="radio"
-                  name="shipping"
-                  checked={shippingOption === "outside"}
-                  onChange={() => setShippingOption("outside")}
-                />
-                <span className="flex-1">ঢাকা সিটির বাইরে</span>
-                <span className="font-medium">{formatBDT(15000)}</span>
-              </label>
+              {shippingOptions.map((option) => (
+                <label key={option.id} className="flex items-start gap-2 text-sm border rounded-md px-3 py-2">
+                  <input
+                    type="radio"
+                    name="shipping"
+                    checked={shippingOption === option.id}
+                    onChange={() => setShippingOption(option.id)}
+                  />
+                  <span className="flex-1">
+                    <span className="block font-medium">{option.label}</span>
+                    <span className="text-xs text-slate-500">{option.description}</span>
+                  </span>
+                  <span className="font-medium">{formatCurrency(option.fee, currency)}</span>
+                </label>
+              ))}
             </div>
             {/* Total */}
             <div className="grid grid-cols-[auto_1fr_auto] border-t bg-slate-50">
               <div className="px-4 py-3 col-span-2 font-semibold">Total</div>
-              <div className="px-4 py-3 font-bold text-right">{formatBDT(total)}</div>
+              <div className="px-4 py-3 font-bold text-right">{formatCurrency(total, currency)}</div>
             </div>
           </div>
         </aside>

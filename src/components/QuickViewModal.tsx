@@ -6,12 +6,14 @@ import Image from "next/image";
 import { X } from "lucide-react";
 import { useCart } from "@/stores/cart";
 import { formatCurrency } from "@/lib/currency";
+import { useCurrency } from "@/stores/currency";
 
 export default function QuickViewModal() {
   const { quickViewId, closeQuickView } = useUI();
   const products = rawProducts as unknown as Product[];
   const product = products.find(p=>p.id===quickViewId);
   const { add } = useCart();
+  const { currency } = useCurrency();
 
   const open = Boolean(product);
   // If there's nothing to show, render nothing to avoid stray white panel
@@ -33,10 +35,10 @@ export default function QuickViewModal() {
             <h4 className="text-xl font-semibold">{p.title}</h4>
             <p className="mt-2 text-slate-700 text-sm">{p.description}</p>
             <div className="mt-3 flex items-center gap-3">
-              <span className="text-base font-semibold">{formatCurrency(p.price)}</span>
-              {p.compareAtPrice && <span className="text-slate-500 line-through">{formatCurrency(p.compareAtPrice)}</span>}
+              <span className="text-base font-semibold">{formatCurrency(p.price, currency)}</span>
+              {p.compareAtPrice && <span className="text-slate-500 line-through">{formatCurrency(p.compareAtPrice, currency)}</span>}
             </div>
-            <button onClick={()=>{ add(p.id,1); closeQuickView(); }} className="mt-5 bg-slate-900 text-white px-5 py-2 rounded">Add to Cart</button>
+            <button onClick={()=>{ add(p.id,1); closeQuickView(); }} className="mt-5 bg-slate-900 text-white px-5 py-2 rounded">+ Add</button>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useMemo } from "react";
 import { X } from "lucide-react";
 import rawProducts from "@/data/products.json";
 import type { Product } from "@/lib/types";
@@ -7,16 +8,31 @@ import { useUI } from "@/stores/ui";
 import { formatCurrency } from "@/lib/currency";
 import Image from "next/image";
 import Link from "next/link";
+import { useCurrency } from "@/stores/currency";
 
 export default function CartDrawer() {
   const { cartOpen, closeCart } = useUI();
   const { items, setQty, remove } = useCart();
+  const { currency } = useCurrency();
   const products = rawProducts as unknown as Product[];
+  const productMap = useMemo(() => {
+    const map = new Map<string, Product>();
+    products.forEach((product) => map.set(product.id, product));
+    return map;
+  }, [products]);
 
-  const detailed = items.map((i) => ({
-    item: i,
-    product: products.find((p) => p.id === i.productId)!,
-  }));
+  const missingProductIds = items.filter((item) => !productMap.has(item.productId)).map((item) => item.productId);
+  useEffect(() => {
+    if (!missingProductIds.length) return;
+    missingProductIds.forEach((id) => remove(id));
+  }, [missingProductIds, remove]);
+
+  const detailed = items.reduce<{ item: (typeof items)[number]; product: Product }[]>((acc, item) => {
+    const product = productMap.get(item.productId);
+    if (!product) return acc;
+    acc.push({ item, product });
+    return acc;
+  }, []);
   const subtotal = detailed.reduce((acc, d) => acc + d.product.price * d.item.quantity, 0);
 
   return (
@@ -38,7 +54,7 @@ export default function CartDrawer() {
                 <div className="flex justify-between">
                   <div>
                     <p className="font-medium">{product.title}</p>
-                    <p className="text-sm text-slate-600">{formatCurrency(product.price)}</p>
+                    <p className="text-sm text-slate-600">{formatCurrency(product.price, currency)}</p>
                   </div>
                   <button className="text-sm text-slate-500" onClick={() => remove(item.productId)}>Remove</button>
                 </div>
@@ -54,7 +70,7 @@ export default function CartDrawer() {
         <div className="p-4 border-t">
           <div className="flex justify-between font-medium">
             <span>Subtotal</span>
-            <span>{formatCurrency(subtotal)}</span>
+            <span>{formatCurrency(subtotal, currency)}</span>
           </div>
           <Link href="/checkout" onClick={closeCart} className="mt-3 block text-center bg-sky-600 text-white py-2 rounded">Checkout</Link>
         </div>

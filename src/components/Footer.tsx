@@ -1,118 +1,224 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin, Facebook, Instagram, Twitter } from "lucide-react";
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  ArrowUpRight,
+  ShieldCheck,
+  RefreshCcw,
+  Timer,
+  MessageCircle
+} from "lucide-react";
+
+const navGroups = [
+  {
+    title: "Shop",
+    items: [
+      { label: "Smartphones", href: "/shop?category=smartphones" },
+      { label: "Laptops", href: "/shop?category=laptops" },
+      { label: "Tablets", href: "/shop?category=tablets" },
+      { label: "Wearables", href: "/shop?category=wearables" },
+      { label: "Accessories", href: "/shop?category=accessories" }
+    ]
+  },
+  {
+    title: "Programs",
+    items: [
+      { label: "Trade-in & Sell", href: "/contact?sell=true" },
+      { label: "Clearance outlet", href: "/shop?category=clearance" },
+      { label: "Device protection", href: "/contact?topic=protection" },
+      { label: "Business procurement", href: "/contact?topic=fleet" }
+    ]
+  },
+  {
+    title: "Company",
+    items: [
+      { label: "About WeSell", href: "/about" },
+      { label: "Press & media", href: "/contact" },
+      { label: "Partner with us", href: "/contact" },
+      { label: "Privacy center", href: "/privacy" }
+    ]
+  }
+];
+
+const serviceHighlights = [
+  {
+    label: "2-hr metro delivery",
+    description: "Ready-stock dispatch across LA & NYC within 120 minutes.",
+    icon: Timer
+  },
+  {
+    label: "Official warranty",
+    description: "Brand-authorized coverage plus in-house rapid repairs.",
+    icon: ShieldCheck
+  },
+  {
+    label: "Trade-in ready",
+    description: "Lock an offer online and hand over in store or at your door.",
+    icon: RefreshCcw
+  }
+];
+
+const doors = [
+  { label: "Los Angeles Experience Lab", value: "1200 Sunset Blvd, Los Angeles, CA" },
+  { label: "NYC Fulfillment Hub", value: "45-12 Vernon Blvd, Long Island City, NY" }
+];
+
+const policyLinks = [
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/contact" },
+  { label: "Accessibility", href: "/contact" },
+  { label: "Sustainability", href: "/contact" }
+];
+
+const socialLinks = [
+  { label: "Facebook", icon: Facebook, href: "#" },
+  { label: "Instagram", icon: Instagram, href: "#" },
+  { label: "Twitter", icon: Twitter, href: "#" }
+];
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="mt-16 bg-white">
-      {/* Customer Reviews Section */}
-      <div className="border-t border-b bg-slate-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-          <h3 className="text-2xl font-semibold text-slate-900 mb-8">Customer Reviews</h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { name: "Mahfuzur Rahman", platform: "Daraz", rating: 5, text: "Quality product, premium looks, premium packaging and fast delivery. Hoping that it will last long too. Thanks GRAYS. 10/10" },
-              { name: "Rakibul Hasan", platform: "Facebook", rating: 5, text: "I received a belt from Grays, I'm very happy with it. The quality is excellent, it looks great, and fits perfectly. recommended!" },
-              { name: "Kamal Haque", platform: "Facebook", rating: 5, text: "Great products and excellent customer service. I've ordered multiple times and I'm always satisfied. Highly recommended!" }
-            ].map((review, idx) => (
-              <div key={idx} className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
-                <div className="flex mb-3">
-                  {[...Array(review.rating)].map((_, i) => (
-                    <span key={i} className="text-yellow-400">★</span>
+    <footer className="mt-16 text-slate-100">
+      <section className="bg-white text-slate-900">
+        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <div className="max-w-2xl">
+            <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Heard enough?</p>
+            <div className="mt-2 flex items-baseline gap-4">
+              <h2 className="text-3xl font-semibold">Contact us</h2>
+              <span className="hidden h-0.5 flex-1 bg-lime-300 md:block" />
+            </div>
+            <p className="mt-3 text-sm text-slate-600">
+              Concierge hardware help, trade-in valuations, and deployment planning handled in one thread.
+            </p>
+          </div>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 rounded-full bg-lime-300 px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-lime-200"
+          >
+            Start a brief
+            <ArrowUpRight size={18} />
+          </Link>
+        </div>
+      </section>
+
+      <section className="bg-slate-950">
+        <div className="mx-auto max-w-6xl space-y-10 px-4 py-12 sm:px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr_1fr]">
+            <div className="space-y-5">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">WeSell</p>
+                <h3 className="mt-2 text-2xl font-semibold text-white">City-to-city marketplace for everyday tech</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-300">
+                  Curated flagship mobiles, creator laptops, smart wearables, and accessories verified by our hardware team. Seamless trade-ins,
+                  financing help, and doorstep setup keep you moving without downtime.
+                </p>
+              </div>
+              <ul className="space-y-3 text-sm text-slate-300">
+                {serviceHighlights.map((highlight) => (
+                  <li key={highlight.label} className="flex gap-3">
+                    <span className="rounded-full bg-white/10 p-2 text-white">
+                      <highlight.icon size={14} />
+                    </span>
+                    <div>
+                      <p className="font-semibold text-white">{highlight.label}</p>
+                      <p className="text-xs text-slate-400">{highlight.description}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
+              {navGroups.map((group) => (
+                <div key={group.title}>
+                  <p className="text-xs uppercase tracking-[0.3em] text-slate-500">{group.title}</p>
+                  <ul className="mt-3 space-y-1 text-sm text-slate-300">
+                    {group.items.map((item) => (
+                      <li key={item.label}>
+                        <Link href={item.href} className="transition hover:text-white">
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            <div className="space-y-6 text-sm text-slate-300">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Talk direct</p>
+                <div className="mt-3 space-y-1">
+                  <div className="font-semibold text-white">+880 1400-555-222</div>
+                  <p className="text-xs text-slate-400">Hotline · WhatsApp · Telegram</p>
+                  <div className="font-semibold text-white">support@wesell.com</div>
+                  <p className="text-xs text-slate-400">Replies within 12h</p>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Visit</p>
+                <ul className="mt-3 space-y-2">
+                  {doors.map((door) => (
+                    <li key={door.label}>
+                      <p className="font-semibold text-white">{door.label}</p>
+                      <p className="text-xs text-slate-400">{door.value}</p>
+                    </li>
                   ))}
-                </div>
-                <p className="text-slate-700 text-sm mb-4">{review.text}</p>
-                <div className="text-sm">
-                  <div className="font-medium text-slate-900">{review.name}</div>
-                  <div className="text-slate-500 text-xs">{review.platform}</div>
-                </div>
+                </ul>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Main Footer */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-12">
-          {/* Newsletter */}
-          <div className="md:col-span-2">
-            <h3 className="font-semibold text-lg text-slate-900 mb-3">Stay in the loop</h3>
-            <p className="text-sm text-slate-600 mb-4">Get updates on new arrivals and exclusive offers from Grays.</p>
-            <form className="flex gap-2">
-              <input type="email" placeholder="Your email" className="border border-slate-300 px-3 py-2 rounded flex-1 text-sm" />
-              <button className="bg-slate-900 text-white px-4 py-2 rounded text-sm font-medium hover:bg-slate-800 transition">Subscribe</button>
-            </form>
-          </div>
-
-          {/* My Account */}
-          <div>
-            <h4 className="font-semibold text-slate-900 mb-3">My Account</h4>
-            <ul className="space-y-2 text-sm text-slate-600">
-              <li><Link href="/shop" className="hover:text-slate-900 transition">My orders</Link></li>
-              <li><Link href="/shop" className="hover:text-slate-900 transition">My returns</Link></li>
-              <li><Link href="/contact" className="hover:text-slate-900 transition">My information</Link></li>
-            </ul>
-          </div>
-
-          {/* Customer Service */}
-          <div>
-            <h4 className="font-semibold text-slate-900 mb-3">Customer Service</h4>
-            <ul className="space-y-2 text-sm text-slate-600">
-              <li><Link href="/contact" className="hover:text-slate-900 transition">Payments</Link></li>
-              <li><Link href="/contact" className="hover:text-slate-900 transition">Shipping & delivery</Link></li>
-              <li><Link href="/contact" className="hover:text-slate-900 transition">Returns</Link></li>
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h4 className="font-semibold text-slate-900 mb-3">Company</h4>
-            <ul className="space-y-2 text-sm text-slate-600">
-              <li><Link href="/about" className="hover:text-slate-900 transition">About</Link></li>
-              <li><Link href="/contact" className="hover:text-slate-900 transition">Contact</Link></li>
-              <li><Link href="/privacy" className="hover:text-slate-900 transition">Privacy</Link></li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="border-t pt-8">
-          {/* Contact Info */}
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
-            <div className="flex gap-3">
-              <Phone size={18} className="text-slate-600 shrink-0 mt-1" />
-              <div className="text-sm">
-                <div className="font-medium text-slate-900">Phone</div>
-                <div className="text-slate-600">+1 (555) 123-4567</div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Newsletter</p>
+                <form className="mt-3 flex gap-2" aria-label="Newsletter signup">
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    className="flex-1 rounded-full border border-white/15 bg-transparent px-3 py-2 text-xs text-white placeholder:text-slate-500 focus:border-white/40 focus:outline-none"
+                  />
+                  <button
+                    type="button"
+                    className="inline-flex items-center justify-center rounded-full bg-white/90 px-4 text-xs font-semibold text-slate-900 transition hover:bg-white"
+                  >
+                    Join
+                  </button>
+                </form>
+                <p className="mt-2 text-xs text-slate-500">Launch notes only. Unsubscribe anytime.</p>
               </div>
-            </div>
-            <div className="flex gap-3">
-              <Mail size={18} className="text-slate-600 shrink-0 mt-1" />
-              <div className="text-sm">
-                <div className="font-medium text-slate-900">Email</div>
-                <div className="text-slate-600">support@grays.com</div>
-              </div>
-            </div>
-            <div className="flex gap-3">
-              <MapPin size={18} className="text-slate-600 shrink-0 mt-1" />
-              <div className="text-sm">
-                <div className="font-medium text-slate-900">Address</div>
-                <div className="text-slate-600">123 Grays Street, City, ST 12345</div>
+              <div className="flex items-center gap-2 text-xs text-slate-400">
+                <MessageCircle size={14} />
+                <span>
+                  Need a human? <Link href="/contact" className="underline-offset-2 hover:underline">Schedule a call</Link>
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Social & Copyright */}
-          <div className="flex items-center justify-between border-t pt-8">
-            <div className="text-sm text-slate-600">© {new Date().getFullYear()} Grays. All rights reserved.</div>
-            <div className="flex gap-4">
-              <Link href="#" aria-label="Facebook"><Facebook size={18} className="text-slate-600 hover:text-slate-900 transition" /></Link>
-              <Link href="#" aria-label="Instagram"><Instagram size={18} className="text-slate-600 hover:text-slate-900 transition" /></Link>
-              <Link href="#" aria-label="Twitter"><Twitter size={18} className="text-slate-600 hover:text-slate-900 transition" /></Link>
+          <div className="flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-slate-400 md:flex-row md:items-center md:justify-between">
+            <div>© {year} WeSell Electronics · Built in LA & NYC · Shipping nationwide.</div>
+            <div className="flex flex-wrap gap-4">
+              {policyLinks.map((link) => (
+                <Link key={link.label} href={link.href} className="hover:text-white">
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+            <div className="flex gap-3">
+              {socialLinks.map((social) => (
+                <Link
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-slate-300 transition hover:border-white hover:text-white"
+                >
+                  <social.icon size={16} />
+                </Link>
+              ))}
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </footer>
   );
 }

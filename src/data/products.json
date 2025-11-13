@@ -1,148 +1,197 @@
 [
   {
-    "id": "p-001",
-    "slug": "aero-soft-tee",
-    "title": "Aero Soft Tee",
-    "description": "Feather-light tee with breathable weave for all-day comfort.",
-    "price": 129900,
-    "compareAtPrice": 149900,
-  "images": [
-    "https://picsum.photos/id/1005/1200/900",
-    "https://picsum.photos/id/1006/1200/900"
-  ],
-    "category": "men",
-    "brand": "Grays Studio",
-    "badges": ["New", "Sale"],
-    "createdAt": "2025-10-10T00:00:00.000Z"
+    "id": "p-201",
+    "slug": "iphone-14-pro",
+    "title": "iPhone 14 Pro",
+    "description": "ProMotion OLED, A16 Bionic, triple camera system with Photonic Engine.",
+    "price": 99900,
+    "compareAtPrice": 109900,
+    "images": [
+      "https://picsum.photos/seed/iphone14-front/1200/900",
+      "https://picsum.photos/seed/iphone14-side/1200/900",
+      "https://picsum.photos/seed/iphone14-box/1200/900"
+    ],
+    "category": "smartphones",
+    "brand": "Apple",
+    "badges": ["Sale"],
+    "createdAt": "2025-09-15T00:00:00.000Z"
   },
   {
-    "id": "p-002",
-    "slug": "linen-camp-shirt",
-    "title": "Linen Camp Shirt",
-    "description": "Relaxed, breathable linen for warm days and cool nights.",
-    "price": 139900,
-  "images": [
-    "https://picsum.photos/id/1011/1200/900",
-    "https://picsum.photos/id/1012/1200/900"
-  ],
-    "category": "men",
-    "brand": "Grays Studio",
+    "id": "p-202",
+    "slug": "iphone-15-pro-max",
+    "title": "iPhone 15 Pro Max",
+    "description": "Titanium enclosure, USB‑C, 5x tetraprism zoom, spatial video capture.",
+    "price": 119900,
+    "compareAtPrice": 129900,
+    "images": [
+      "https://picsum.photos/seed/iphone15-front/1200/900",
+      "https://picsum.photos/seed/iphone15-side/1200/900",
+      "https://picsum.photos/seed/iphone15-box/1200/900"
+    ],
+    "category": "smartphones",
+    "brand": "Apple",
     "badges": ["Best"],
-    "createdAt": "2025-09-28T00:00:00.000Z"
-  },
-  {
-    "id": "p-003",
-    "slug": "cloud-knit-hoodie",
-    "title": "Cloud Knit Hoodie",
-    "description": "Ultra-soft brushed knit with a clean, modern silhouette.",
-    "price": 149900,
-  "images": [
-    "https://picsum.photos/id/1050/1200/900",
-    "https://picsum.photos/id/1051/1200/900"
-  ],
-    "category": "women",
-    "brand": "Grays Studio",
-    "badges": ["Hot"],
     "createdAt": "2025-10-05T00:00:00.000Z"
   },
   {
-    "id": "p-004",
-    "slug": "everyday-tote",
-    "title": "Everyday Tote",
-    "description": "Minimal carry-all with internal organization.",
-    "price": 119900,
-  "images": [
-    "https://picsum.photos/id/1062/1200/900",
-    "https://picsum.photos/id/1063/1200/900"
-  ],
-    "category": "accessories",
-    "brand": "Grays Lab",
-    "createdAt": "2025-08-14T00:00:00.000Z"
+    "id": "p-203",
+    "slug": "iphone-16-pro",
+    "title": "iPhone 16 Pro",
+    "description": "A18 Neural core, adaptive display island, 6x periscope telephoto.",
+    "price": 129900,
+    "images": [
+      "https://picsum.photos/seed/iphone16-front/1200/900",
+      "https://picsum.photos/seed/iphone16-side/1200/900",
+      "https://picsum.photos/seed/iphone16-box/1200/900"
+    ],
+    "category": "smartphones",
+    "brand": "Apple",
+    "badges": ["New"],
+    "createdAt": "2025-11-01T00:00:00.000Z"
   },
   {
-    "id": "p-005",
-    "slug": "stride-sneaker",
-    "title": "Stride Sneaker",
-    "description": "Cushioned sole with responsive bounce for daily miles.",
+    "id": "p-204",
+    "slug": "iphone-17-ultra",
+    "title": "iPhone 17 Ultra",
+    "description": "Graphene thermal core, 1\" sensor, satellite text + live video uplink.",
     "price": 149900,
-    "compareAtPrice": 159900,
-  "images": [
-    "https://picsum.photos/id/1033/1200/900",
-    "https://picsum.photos/id/1034/1200/900"
-  ],
-    "category": "shoes",
-    "brand": "Grays Motion",
+    "images": [
+      "https://picsum.photos/seed/iphone17-front/1200/900",
+      "https://picsum.photos/seed/iphone17-side/1200/900",
+      "https://picsum.photos/seed/iphone17-box/1200/900"
+    ],
+    "category": "smartphones",
+    "brand": "Apple",
+    "badges": ["Hot"],
+    "createdAt": "2025-11-10T00:00:00.000Z"
+  },
+  {
+    "id": "p-205",
+    "slug": "macbook-air-m4",
+    "title": "MacBook Air 15\" M4",
+    "description": "Fanless performance, 18‑hour battery, Liquid Retina display.",
+    "price": 179900,
+    "compareAtPrice": 189900,
+    "images": [
+      "https://picsum.photos/seed/mba15-hero/1200/900",
+      "https://picsum.photos/seed/mba15-side/1200/900",
+      "https://picsum.photos/seed/mba15-desk/1200/900"
+    ],
+    "category": "laptops",
+    "brand": "Apple",
     "badges": ["Sale"],
-    "createdAt": "2025-09-10T00:00:00.000Z"
+    "createdAt": "2025-08-20T00:00:00.000Z"
   },
   {
-    "id": "p-006",
-    "slug": "merino-crew",
-    "title": "Merino Crew",
-    "description": "Temperature-regulating sweater in fine merino.",
-    "price": 139900,
-  "images": [
-    "https://picsum.photos/id/1027/1200/900",
-    "https://picsum.photos/id/1028/1200/900"
-  ],
-    "category": "women",
-    "brand": "Grays Studio",
-    "createdAt": "2025-07-22T00:00:00.000Z"
+    "id": "p-206",
+    "slug": "macbook-pro-m4-max",
+    "title": "MacBook Pro 16\" M4 Max",
+    "description": "128‑GPU M4 Max, mini‑LED XDR, triple 8K ProRes encode engines.",
+    "price": 259900,
+    "images": [
+      "https://picsum.photos/seed/mbp16-hero/1200/900",
+      "https://picsum.photos/seed/mbp16-ports/1200/900",
+      "https://picsum.photos/seed/mbp16-studio/1200/900"
+    ],
+    "category": "laptops",
+    "brand": "Apple",
+    "badges": ["Best"],
+    "createdAt": "2025-09-30T00:00:00.000Z"
   },
   {
-    "id": "p-007",
-    "slug": "tech-chino",
-    "title": "Tech Chino",
-    "description": "Wrinkle-resistant chino with stretch and water-repellency.",
-    "price": 134900,
-  "images": [
-    "https://picsum.photos/id/1020/1200/900",
-    "https://picsum.photos/id/1021/1200/900"
-  ],
-    "category": "men",
-    "brand": "Grays Motion",
-    "createdAt": "2025-09-02T00:00:00.000Z"
+    "id": "p-207",
+    "slug": "surface-laptop-7",
+    "title": "Surface Laptop 7",
+    "description": "Snapdragon X Elite, Copilot+ Studio effects, woven Alcantara deck.",
+    "price": 169900,
+    "images": [
+      "https://picsum.photos/seed/surface7-hero/1200/900",
+      "https://picsum.photos/seed/surface7-kbd/1200/900",
+      "https://picsum.photos/seed/surface7-travel/1200/900"
+    ],
+    "category": "laptops",
+    "brand": "Microsoft",
+    "badges": ["New"],
+    "createdAt": "2025-09-18T00:00:00.000Z"
   },
   {
-    "id": "p-008",
-    "slug": "cozy-socks-3pack",
-    "title": "Cozy Socks 3‑Pack",
-    "description": "Soft ribbed socks with cushioned heel and toe.",
-    "price": 109900,
-  "images": [
-    "https://picsum.photos/id/1069/1200/900",
-    "https://picsum.photos/id/1070/1200/900"
-  ],
+    "id": "p-208",
+    "slug": "surface-pro-x3",
+    "title": "Surface Pro X3",
+    "description": "13\" OLED 120 Hz panel, detachable keyboard, all‑day battery.",
+    "price": 159900,
+    "images": [
+      "https://picsum.photos/seed/surfacepro-hero/1200/900",
+      "https://picsum.photos/seed/surfacepro-pen/1200/900",
+      "https://picsum.photos/seed/surfacepro-dock/1200/900"
+    ],
+    "category": "tablets",
+    "brand": "Microsoft",
+    "badges": ["Hot"],
+    "createdAt": "2025-08-30T00:00:00.000Z"
+  },
+  {
+    "id": "p-209",
+    "slug": "magsafe-travel-charger",
+    "title": "MagSafe Travel Charger",
+    "description": "Foldable dual puck charger for iPhone, Watch, and Qi2 accessories.",
+    "price": 39900,
+    "images": [
+      "https://picsum.photos/seed/magsafe-fold/1200/900",
+      "https://picsum.photos/seed/magsafe-duo/1200/900",
+      "https://picsum.photos/seed/magsafe-pack/1200/900"
+    ],
     "category": "accessories",
-    "brand": "Grays Essentials",
-    "createdAt": "2025-10-01T00:00:00.000Z"
+    "brand": "Apple",
+    "badges": ["Sale"],
+    "createdAt": "2025-10-08T00:00:00.000Z"
   },
   {
-    "id": "p-009",
-    "slug": "feather-puffer",
-    "title": "Feather Puffer",
-    "description": "Warmth without bulk with recycled fill.",
-    "price": 149900,
-  "images": [
-    "https://picsum.photos/id/1012/1200/900",
-    "https://picsum.photos/id/1013/1200/900"
-  ],
-    "category": "women",
-    "brand": "Grays Studio",
-    "createdAt": "2025-10-12T00:00:00.000Z"
-  },
-  {
-    "id": "p-010",
-    "slug": "travel-cap",
-    "title": "Travel Cap",
-    "description": "Packable cap with moisture-wicking band.",
-    "price": 119900,
-  "images": [
-    "https://picsum.photos/id/1003/1200/900",
-    "https://picsum.photos/id/1004/1200/900"
-  ],
+    "id": "p-210",
+    "slug": "surface-slim-pen-3",
+    "title": "Surface Slim Pen 3",
+    "description": "Adaptive haptics, magnetic charging bay, Copilot quick actions.",
+    "price": 24900,
+    "images": [
+      "https://picsum.photos/seed/slimpen-capsule/1200/900",
+      "https://picsum.photos/seed/slimpen-flow/1200/900",
+      "https://picsum.photos/seed/slimpen-kit/1200/900"
+    ],
     "category": "accessories",
-    "brand": "Grays Lab",
-    "createdAt": "2025-08-01T00:00:00.000Z"
+    "brand": "Microsoft",
+    "badges": ["New"],
+    "createdAt": "2025-10-20T00:00:00.000Z"
+  },
+  {
+    "id": "p-211",
+    "slug": "apple-watch-ultra-3",
+    "title": "Apple Watch Ultra 3",
+    "description": "Sapphire flat crystal, dual-frequency GPS, 100m water resistance.",
+    "price": 99900,
+    "images": [
+      "https://picsum.photos/seed/ultra3-front/1200/900",
+      "https://picsum.photos/seed/ultra3-trail/1200/900",
+      "https://picsum.photos/seed/ultra3-night/1200/900"
+    ],
+    "category": "wearables",
+    "brand": "Apple",
+    "badges": ["Best"],
+    "createdAt": "2025-09-05T00:00:00.000Z"
+  },
+  {
+    "id": "p-212",
+    "slug": "studio-display-xdr",
+    "title": "Studio Display XDR",
+    "description": "32\" Retina XDR, reference mode presets, nano-texture option.",
+    "price": 199900,
+    "images": [
+      "https://picsum.photos/seed/xdr-front/1200/900",
+      "https://picsum.photos/seed/xdr-back/1200/900",
+      "https://picsum.photos/seed/xdr-desk/1200/900"
+    ],
+    "category": "displays",
+    "brand": "Apple",
+    "badges": ["Hot"],
+    "createdAt": "2025-08-10T00:00:00.000Z"
   }
 ]

@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Grays — Modern Ecommerce",
-  description: "Grays: A minimal, modern ecommerce storefront built with Next.js",
+  title: "WeSell — Citywide Electronics",
+  description: "WeSell is an urban electronics marketplace for phones, laptops, wearables, and rapid support.",
   icons: {
     icon: "/favicon.svg",
   },
@@ -31,13 +31,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
-      >
-  <Header />
-  <main className="pt-(--header-h,4rem)">{children}</main>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}>
+        <Header />
+        <main className="pt-(--header-h,4rem)">{children}</main>
         <Footer />
-  <QuickViewModal />
-  <CartDrawer />
+        <QuickViewModal />
+        <CartDrawer />
       </body>
     </html>
   );

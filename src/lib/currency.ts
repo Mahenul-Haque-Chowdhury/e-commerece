@@ -1,16 +1,25 @@
 export type CurrencyOptions = {
-  currency?: string; // ISO 4217, e.g. "BDT"
-  locale?: string; // e.g. "en-BD" or "bn-BD"
-  symbolPosition?: "prefix" | "suffix"; // keep current UX: suffix by default
+  currency?: string; // ISO 4217, e.g. "USD"
+  locale?: string; // e.g. "en-US"
+  symbolPosition?: "prefix" | "suffix";
 };
 
-// Formats integer minor units as currency, defaulting to BDT with a suffix symbol (e.g., 199900 -> "1,999.00৳").
-export function formatCurrency(
-  minorUnits: number,
-  { currency = "BDT", locale = "en-BD", symbolPosition = "suffix" }: CurrencyOptions = {}
-) {
+export const currencyCatalog = {
+  USD: { label: "USD", locale: "en-US", symbolPosition: "prefix" as const, rateFromUSD: 1 },
+  CAD: { label: "CAD", locale: "en-CA", symbolPosition: "prefix" as const, rateFromUSD: 1.36 },
+  AUD: { label: "AUD", locale: "en-AU", symbolPosition: "prefix" as const, rateFromUSD: 1.53 },
+  GBP: { label: "GBP", locale: "en-GB", symbolPosition: "prefix" as const, rateFromUSD: 0.78 },
+  EUR: { label: "EUR", locale: "de-DE", symbolPosition: "prefix" as const, rateFromUSD: 0.92 },
+  JPY: { label: "JPY", locale: "ja-JP", symbolPosition: "prefix" as const, rateFromUSD: 152 },
+  BDT: { label: "BDT", locale: "en-BD", symbolPosition: "suffix" as const, rateFromUSD: 110 },
+};
+
+export type CurrencyCode = keyof typeof currencyCatalog;
+
+export const supportedCurrencies: CurrencyCode[] = Object.keys(currencyCatalog) as CurrencyCode[];
+
+function formatMinorUnits(minorUnits: number, { currency = "USD", locale = "en-US", symbolPosition = "prefix" }: CurrencyOptions = {}) {
   const amount = minorUnits / 100;
-  // Use Intl to format number parts and symbol; we will re-arrange if suffix requested
   const parts = new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
@@ -26,4 +35,20 @@ export function formatCurrency(
 
   if (symbolPosition === "prefix") return `${symbol}${number}`;
   return `${number}${symbol}`;
+}
+
+export function convertFromUSD(minorUSD: number, currency: CurrencyCode) {
+  const rate = currencyCatalog[currency].rateFromUSD;
+  return Math.round(minorUSD * rate);
+}
+
+// Formats integer USD minor units into the requested currency.
+export function formatCurrency(minorUSD: number, currency: CurrencyCode = "USD") {
+  const meta = currencyCatalog[currency];
+  const converted = convertFromUSD(minorUSD, currency);
+  return formatMinorUnits(converted, {
+    currency,
+    locale: meta.locale,
+    symbolPosition: meta.symbolPosition,
+  });
 }
