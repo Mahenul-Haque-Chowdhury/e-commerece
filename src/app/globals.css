@@ -61,6 +61,14 @@ body {
   overflow-x: hidden;
 }
 
+.safe-bottom {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+}
+
+.safe-bottom-sm {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.5rem);
+}
+
 /* Utility classes leveraging tokens */
 .card-base { background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
 .card-hover:hover { box-shadow: var(--shadow-md); border-color: var(--border-strong); }

@@ -84,16 +84,16 @@ export default function ProductCard({ product }: { product: Product }) {
           <p className="text-sm text-soft line-clamp-2">{product.description}</p>
         </div>
 
-        <div className="flex items-baseline gap-3">
+        <div className="flex flex-wrap items-baseline gap-2 sm:gap-3">
           <span className="text-xl font-bold tracking-tight text-(--accent)">{formatCurrency(product.price, currency)}</span>
           {comparePrice && <span className="text-sm text-soft line-through">{comparePrice}</span>}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
           <button
             type="button"
             onClick={handleAdd}
-            className={`inline-flex flex-1 items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-(--background) ${
+            className={`inline-flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-(--background) ${
               justAdded
                 ? "bg-emerald-500 text-white focus-visible:ring-emerald-300"
                 : "bg-(--foreground) text-(--background) hover:bg-(--foreground)/90 focus-visible:ring-(--foreground)"
@@ -105,7 +105,7 @@ export default function ProductCard({ product }: { product: Product }) {
           </button>
           <Link
             href={`/product/${product.slug}`}
-            className="inline-flex items-center gap-2 rounded-2xl border border-white/20 px-4 py-3 text-sm font-semibold text-soft transition hover:border-white/40 focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--background)"
+            className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 px-4 py-3 text-sm font-semibold text-soft transition hover:border-white/40 focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--background) w-full sm:w-auto"
           >
             Details <ArrowUpRight size={16} />
           </Link>

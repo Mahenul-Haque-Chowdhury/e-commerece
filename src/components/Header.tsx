@@ -564,7 +564,7 @@ export default function Header() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden border-t border-slate-700 bg-slate-900">
-          <div className="px-4 py-3 grid grid-cols-1 gap-3 text-slate-300">
+          <div className="px-4 py-3 grid grid-cols-1 gap-3 text-slate-300 safe-bottom-sm">
             {navItems.map((item) => (
               <div key={item.key}>
                 <Link href={item.href} className="flex items-center justify-between py-2 text-sm font-semibold uppercase tracking-wide hover:text-white">

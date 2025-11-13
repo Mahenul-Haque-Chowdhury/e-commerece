@@ -67,7 +67,7 @@ export default function CartDrawer() {
             </div>
           ))}
         </div>
-        <div className="p-4 border-t">
+        <div className="p-4 border-t safe-bottom-sm">
           <div className="flex justify-between font-medium">
             <span>Subtotal</span>
             <span>{formatCurrency(subtotal, currency)}</span>

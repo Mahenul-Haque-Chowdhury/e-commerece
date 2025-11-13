@@ -16,8 +16,8 @@ export default function Home() {
   return (
     <div className="bg-(--background) text-(--foreground)">
       {/* Hero */}
-      <section className="relative mb-4 md:mb-10">
-        <div className="relative h-[63vh] min-h-[432px] w-full overflow-hidden">
+      <section className="relative mb-6 sm:mb-10">
+        <div className="relative h-[68vh] min-h-[360px] sm:min-h-[432px] w-full overflow-hidden">
           <Image
             src="/hero.jpeg"
             alt="WeSell electronics hero"
@@ -28,16 +28,16 @@ export default function Home() {
           />
           {/* Darker overlay for readability */}
           <div className="absolute inset-0 bg-[rgba(15,17,25,0.68)] backdrop-blur-[2px]" aria-hidden="true" />
-          <div className="absolute inset-0 flex items-center">
+          <div className="absolute inset-0 flex items-center py-12 sm:py-0">
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 w-full">
-              <div className="max-w-3xl space-y-6">
-                <h1 className="reveal-up text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white tracking-tight">
+              <div className="max-w-3xl space-y-6 text-center sm:text-left">
+                <h1 className="reveal-up text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white tracking-tight">
                   Connected Gear<br className="hidden sm:block" /> For Every City Grid
                 </h1>
-                <p className="reveal-up reveal-delay-1 text-lg text-white/80 max-w-xl">
+                <p className="reveal-up reveal-delay-1 mx-auto max-w-2xl text-base text-white/80 sm:text-lg sm:mx-0">
                   WeSell curates flagship phones, creator laptops, and smart wearables backed by concierge setup. Built for Los Angeles, New York, and every US city grid your team touches.
                 </p>
-                <div className="reveal-up reveal-delay-2 mt-8 flex flex-wrap items-center gap-3">
+                <div className="reveal-up reveal-delay-2 mt-8 flex flex-wrap items-center justify-center gap-3 sm:justify-start">
                   <span className="pill px-4 py-2 text-xs font-medium bg-white/10 border border-white/20 text-white flex items-center gap-2">
                     <Zap size={16} className="text-indigo-300" /> Launch code <strong className="text-indigo-200">WESELL5</strong>
                   </span>
@@ -45,11 +45,11 @@ export default function Home() {
                     <Truck size={16} className="text-indigo-300" /> 2-hour delivery in LA & NYC
                   </span>
                 </div>
-                <div className="reveal-up reveal-delay-3 mt-10 flex gap-4">
-                  <Link href="/shop" className="rounded-md bg-(--accent) px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/40 hover:bg-indigo-500 transition">
+                <div className="reveal-up reveal-delay-3 mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
+                  <Link href="/shop" className="rounded-md bg-(--accent) px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/40 hover:bg-indigo-500 transition text-center">
                     Shop electronics
                   </Link>
-                  <Link href="/about" className="rounded-md px-7 py-3 text-sm font-semibold border border-white/30 text-white hover:bg-white/10 transition">
+                  <Link href="/about" className="rounded-md px-6 py-3 text-sm font-semibold border border-white/30 text-white hover:bg-white/10 transition text-center">
                     Meet the team
                   </Link>
                 </div>
@@ -63,7 +63,7 @@ export default function Home() {
       <section className="pt-6 pb-14">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <SectionHeading title="Discover Collections" />
-          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
               { label: "Phones", href: "/shop?category=smartphones", img: "https://picsum.photos/seed/phones/1200/900" },
               { label: "Laptops", href: "/shop?category=laptops", img: "https://picsum.photos/seed/laptops/1200/900" },
@@ -87,14 +87,14 @@ export default function Home() {
       {/* Value props */}
       <section className="py-6">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { title: "Metro delivery", desc: "2-hour dispatch in LA & NYC" },
               { title: "Certified warranty", desc: "Brand-backed repairs + coverage" },
               { title: "Trade-in ready", desc: "Instant valuations on site or chat" },
               { title: "Live engineers", desc: "Device setup & troubleshooting 7 days" }
             ].map((v, idx) => (
-              <div key={v.title} className={`card-base card-hover p-4 flex flex-col gap-1 reveal-card reveal-delay-${(idx % 4) + 1}`}>
+              <div key={v.title} className={`card-base card-hover p-4 flex flex-col gap-1 text-center sm:text-left reveal-card reveal-delay-${(idx % 4) + 1}`}>
                 <h3 className="text-sm font-semibold tracking-wide">{v.title}</h3>
                 <p className="text-xs text-soft">{v.desc}</p>
               </div>
@@ -109,7 +109,7 @@ export default function Home() {
         <div className="mt-8">
           <ProductGrid products={newest} />
         </div>
-        <div className="mt-8 grid md:grid-cols-4 gap-4">
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {newest.slice(0,4).map((p, idx) => (
             <div key={p.id} className={`rounded-lg border-base p-4 flex flex-col gap-2 bg-(--background-alt) reveal-card reveal-delay-${(idx % 4) + 1}`}>
               <div className="text-sm font-medium line-clamp-1">{p.title}</div>

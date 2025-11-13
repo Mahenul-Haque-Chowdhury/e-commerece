@@ -28,7 +28,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
   ];
 
   return (
-    <div className="relative isolate bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.12),transparent_55%)] py-14">
+    <div className="relative isolate bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.12),transparent_55%)] pt-10 pb-32 sm:pt-14 sm:pb-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
           <div className="space-y-4 reveal-up">
@@ -39,13 +39,13 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                 <Sparkles size={14} /> {product.brand} Studio
               </div>
             </div>
-            <div className="grid grid-cols-4 gap-2 reveal-up reveal-delay-1">
+            <div className="reveal-up reveal-delay-1 flex gap-2 overflow-x-auto pb-1 sm:grid sm:grid-cols-4 sm:overflow-visible sm:pb-0">
               {product.images.slice(0, 4).map((src, idx) => (
                 <button
                   key={src}
                   type="button"
                   onClick={() => setActive(idx)}
-                  className={`relative aspect-square overflow-hidden rounded-2xl border transition ${
+                  className={`relative aspect-square overflow-hidden rounded-2xl border transition min-w-[72px] sm:min-w-0 ${
                     active === idx ? "border-(--accent)" : "border-white/10"
                   }`}
                 >
@@ -106,7 +106,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-3">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
           {supportCards.map((card, idx) => (
             <div key={card.title} className={`rounded-3xl border border-white/10 bg-(--background) p-5 reveal-card reveal-delay-${(idx % 3) + 1}`}>
               <card.icon size={20} className="text-(--accent)" />
@@ -116,7 +116,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
           ))}
         </div>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2">
           <div className="rounded-3xl border border-white/10 bg-(--background) p-6 reveal-card">
             <h4 className="text-base font-semibold">What’s in the box</h4>
             <ul className="mt-3 space-y-2 text-sm text-soft">
@@ -137,7 +137,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
         </div>
       </div>
 
-      <div className="fixed bottom-4 left-1/2 z-40 w-[min(640px,calc(100%-2rem))] -translate-x-1/2 rounded-full border border-white/20 bg-(--background) px-5 py-3 shadow-2xl reveal-fade">
+      <div className="fixed bottom-4 left-1/2 z-40 w-[min(640px,calc(100%-2rem))] -translate-x-1/2 rounded-full border border-white/20 bg-(--background) px-5 py-3 shadow-2xl reveal-fade safe-bottom">
         <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
           <div className="min-w-0 flex-1 truncate font-semibold">{product.title}</div>
           <div className="flex items-center gap-3">
