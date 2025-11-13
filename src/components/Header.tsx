@@ -16,7 +16,7 @@ export default function Header() {
   const [openMega, setOpenMega] = useState<string | null>(null);
   const { openCart } = useUI();
   const hoverTimer = useRef<NodeJS.Timeout | null>(null);
-  const { items, remove } = useCart();
+  const { items } = useCart();
   const count = items.reduce((a,b)=>a+b.quantity,0);
 
   const [q, setQ] = useState("");
@@ -178,13 +178,13 @@ export default function Header() {
       id="site-header"
       className={`fixed top-0 left-0 right-0 z-50 transition-all ${
         scrolled
-          ? "bg-slate-900/95 backdrop-blur border-b border-slate-800 shadow-md shadow-black/30"
-          : "bg-slate-950 shadow-md shadow-black/30"
+          ? "bg-(--background-alt)/70 backdrop-blur-md border-b border-(--border) shadow-sm"
+          : "bg-transparent"
       }`}
     >
       {/* Announcement bar */}
-      <div className="hidden md:flex items-center justify-center text-center text-xs bg-slate-950 text-white h-7 px-3">
-        <span>Free shipping over $50 — New arrivals out now</span>
+      <div className="hidden md:flex items-center justify-center text-center text-[11px] bg-(--background-alt) text-soft h-7 px-3 border-b border-(--border)">
+        <span className="flex items-center gap-2"><span className="pill bg-(--accent) text-white px-2 py-0.5 text-[10px] font-semibold">NEW</span> Fresh redesign live — explore collections</span>
       </div>
       {/* Main row */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-6">
@@ -202,10 +202,10 @@ export default function Header() {
             value={q} 
             onChange={e => setQ(e.target.value)} 
             placeholder="Search..." 
-            className="w-full h-10 bg-slate-800 border border-slate-700 rounded-md px-4 text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full h-10 bg-(--background-alt) border border-(--border) rounded-md px-4 text-sm text-(--foreground) placeholder:text-soft focus:outline-none focus:ring-2 focus:ring-(--accent)"
           />
           <div className="absolute right-2 top-1/2 -translate-y-1/2">
-            <Search size={20} className="text-slate-400" />
+            <Search size={20} className="text-soft" />
           </div>
           {q && (
             <div className="absolute top-full mt-2 w-full bg-white shadow-lg rounded-md overflow-hidden z-10">
@@ -227,7 +227,7 @@ export default function Header() {
           )}
         </div>
 
-        <div className="flex items-center gap-2 text-white">
+        <div className="flex items-center gap-2 text-(--foreground)">
           <button
             className="p-2"
             aria-label="Account"
@@ -238,7 +238,7 @@ export default function Header() {
             <User size={20} />
           </button>
           {/* Subtotal amount to the left of cart icon */}
-          <span className="hidden sm:inline text-sm text-slate-300">{subtotal > 0 ? formatCurrency(subtotal) : ""}</span>
+          <span className="hidden sm:inline text-xs text-soft">{subtotal > 0 ? formatCurrency(subtotal) : ""}</span>
           <div className="relative">
             <button className="relative p-2" aria-label="Cart" onClick={openCart}>
               <ShoppingBag size={20} />
@@ -251,9 +251,9 @@ export default function Header() {
       </div>
 
       {/* Category nav */}
-      <div className="hidden md:block border-t border-slate-700" onMouseLeave={startClose}>
+      <div className="hidden md:block border-t border-(--border) bg-(--background)" onMouseLeave={startClose}>
         <div className="relative">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-10 flex items-center gap-6 text-sm text-slate-300">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-11 flex items-center gap-6 text-xs tracking-wide text-soft">
             {[
               { key: "men", label: "Men", href: "/shop?category=men" },
               { key: "women", label: "Women", href: "/shop?category=women" },
@@ -265,28 +265,28 @@ export default function Header() {
                 onMouseEnter={() => startOpen(l.key)}
                 className="h-full flex items-center"
               >
-                <Link href={l.href} className="hover:text-white hover:underline underline-offset-4 transition-colors">{l.label}</Link>
+                <Link href={l.href} className="hover:text-(--accent) hover:underline underline-offset-4 transition-colors font-medium">{l.label}</Link>
               </div>
             ))}
           </div>
 
           {/* Mega panel */}
           <div
-            className={`absolute left-0 right-0 top-full z-60 bg-white border-t shadow-xl transition-all duration-200 ${openMega ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none -translate-y-1"}`}
+            className={`absolute left-0 right-0 top-full z-60 bg-white border-t border-(--border) shadow-lg transition-all duration-200 ${openMega ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none -translate-y-1"}`}
             onMouseEnter={() => openMega && startOpen(openMega)}
           >
             {openMega && (
-              <div className="mx-auto max-w-7xl px-6 py-6 grid grid-cols-3 gap-8">
+              <div className="mx-auto max-w-7xl px-6 py-8 grid grid-cols-3 gap-8">
                 <div className="col-span-3">
-                  <h3 className="text-lg font-semibold mb-4 text-slate-900">{megaData[openMega].title}</h3>
+                  <h3 className="text-sm font-semibold mb-4 text-(--accent)">{megaData[openMega].title}</h3>
                 </div>
                 {megaData[openMega].columns.map((col) => (
                   <div key={col.heading} className="space-y-2">
-                    <div className="text-sm font-medium text-slate-700">{col.heading}</div>
+                    <div className="text-xs font-semibold text-soft uppercase tracking-wide">{col.heading}</div>
                     <ul className="mt-1 space-y-1">
                       {col.items.map((it) => (
                         <li key={it.label}>
-                          <Link href={it.href} className="text-sm text-slate-600 hover:text-orange-500 transition-colors">{it.label}</Link>
+                          <Link href={it.href} className="text-xs text-(--foreground) hover:text-(--accent) transition-colors">{it.label}</Link>
                         </li>
                       ))}
                     </ul>

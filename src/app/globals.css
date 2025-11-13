@@ -7,13 +7,27 @@ html, body, #__next {
 html { scroll-behavior: smooth; }
 
 /* Theme tokens */
+/* Design tokens (refreshed palette) */
 :root {
-  --grays: #0f172a;
-  --grays-foreground: #111827;
-  --accent: #0ea5e9;
-  --accent-foreground: #0b1220;
-  --background: #ffffff;
-  --foreground: #171717;
+  --grays: #0f1115;
+  --grays-foreground: #1e222a;
+  --background: #f8fafc;
+  --background-alt: #ffffff;
+  --foreground: #0f172a;
+  --foreground-soft: #475569;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --accent: #6366f1; /* Indigo */
+  --accent-rgb: 99 102 241;
+  --accent-foreground: #1e1b4b;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgba(15,23,42,0.08);
+  --shadow-md: 0 2px 6px rgba(15,23,42,0.12);
+  --shadow-lg: 0 8px 28px -6px rgba(15,23,42,0.18);
+  --gradient-accent: linear-gradient(135deg, #6366f1, #8b5cf6 50%, #ec4899);
 }
 
 /* Smooth image hover like reference site */
@@ -22,8 +36,16 @@ html { scroll-behavior: smooth; }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0d1117;
+    --background-alt: #10151d;
+    --foreground: #f1f5f9;
+    --foreground-soft: #94a3b8;
+    --border: #1e293b;
+    --border-strong: #334155;
+    --accent-foreground: #eef2ff;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-md: 0 2px 6px rgba(0,0,0,0.5);
+    --shadow-lg: 0 8px 30px -6px rgba(0,0,0,0.55);
   }
 }
 
@@ -34,3 +56,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Utility classes leveraging tokens */
+.card-base { background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+.card-hover:hover { box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+.accent-gradient { background: var(--gradient-accent); color: #fff; }
+.text-soft { color: var(--foreground-soft); }
+.border-base { border: 1px solid var(--border); }
+.pill { border-radius: 999px; }
+
+/* Smooth transitions */
+* { transition: color .15s ease, background-color .25s ease, border-color .25s ease; }
+
