@@ -1,9 +1,9 @@
 "use client";
-import rawProducts from "@/data/products.json";
 import type { Product } from "@/lib/types";
 import ProductGrid from "@/components/ProductGrid";
 import { useMemo, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { listProducts } from "@/lib/data/products";
 
 export default function ShopClient() {
   const params = useSearchParams();
@@ -12,7 +12,7 @@ export default function ShopClient() {
   const [category, setCategory] = useState(params.get("category") ?? "");
   const [brand, setBrand] = useState(params.get("brand") ?? "");
   const [sort, setSort] = useState(params.get("sort") ?? "date-desc");
-  const all: Product[] = rawProducts as unknown as Product[];
+  const all: Product[] = listProducts();
   const minP = Math.min(...all.map(p=>p.price));
   const maxP = Math.max(...all.map(p=>p.price));
   const [minPrice, setMinPrice] = useState(Number(params.get("min") ?? minP));

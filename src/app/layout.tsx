@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import QuickViewModal from "@/components/QuickViewModal";
+import CartDrawer from "@/components/CartDrawer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function RootLayout({
   <main className="pt-(--header-h,4rem)">{children}</main>
         <Footer />
   <QuickViewModal />
+  <CartDrawer />
       </body>
     </html>
   );

@@ -1,11 +1,12 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { ShoppingBag, Search, User, Menu, X } from "lucide-react";
+import { ShoppingBag, Search, User, Menu } from "lucide-react";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useCart } from "@/stores/cart";
-import { formatBDT } from "@/lib/utils";
-import products from "@/data/products.json";
+import { useUI } from "@/stores/ui";
+import { formatCurrency } from "@/lib/currency";
+import { listProducts, searchProducts } from "@/lib/data/products";
 import AccountModal from "./AccountModal";
 
 export default function Header() {
@@ -13,16 +14,7 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
   const [openMega, setOpenMega] = useState<string | null>(null);
-  const [cartHover, setCartHover] = useState(false);
-  const cartTimer = useRef<NodeJS.Timeout | null>(null);
-  const onCartEnter = () => {
-    if (cartTimer.current) clearTimeout(cartTimer.current);
-    setCartHover(true);
-  };
-  const onCartLeave = () => {
-    if (cartTimer.current) clearTimeout(cartTimer.current);
-    cartTimer.current = setTimeout(() => setCartHover(false), 160);
-  };
+  const { openCart } = useUI();
   const hoverTimer = useRef<NodeJS.Timeout | null>(null);
   const { items, remove } = useCart();
   const count = items.reduce((a,b)=>a+b.quantity,0);
@@ -30,10 +22,8 @@ export default function Header() {
   const [q, setQ] = useState("");
   const results = useMemo(() => {
     const term = q.trim().toLowerCase();
-    if (!term) return [] as typeof products;
-    return (products as typeof products).filter(p =>
-      p.title.toLowerCase().includes(term) || p.description.toLowerCase().includes(term) || p.category.toLowerCase().includes(term)
-    ).slice(0, 6);
+    if (!term) return [] as ReturnType<typeof listProducts>;
+    return searchProducts(term).slice(0, 6);
   }, [q]);
 
   useEffect(() => {
@@ -178,7 +168,8 @@ export default function Header() {
     },
   };
 
-  const detailed = useMemo(() => items.map(i => ({ item: i, product: (products as typeof products).find(p=>p.id===i.productId)! })), [items]);
+  const all = useMemo(() => listProducts(), []);
+  const detailed = useMemo(() => items.map(i => ({ item: i, product: all.find(p=>p.id===i.productId)! })), [items, all]);
   const subtotal = useMemo(() => detailed.reduce((acc, d)=> acc + d.product.price * d.item.quantity, 0), [detailed]);
 
   return (
@@ -247,49 +238,14 @@ export default function Header() {
             <User size={20} />
           </button>
           {/* Subtotal amount to the left of cart icon */}
-          <span className="hidden sm:inline text-sm text-slate-300">{subtotal > 0 ? formatBDT(subtotal) : ""}</span>
-          <div className="relative" onMouseEnter={onCartEnter} onMouseLeave={onCartLeave}>
-            <button className="relative p-2" aria-label="Cart" onClick={() => setCartHover(v => !v)}>
-              <ShoppingBag size={20} className={`transition-transform ${cartHover ? "-translate-y-0.5" : ""}`} />
-            {count > 0 && (
-              <span className="absolute -top-1 -right-1 text-[10px] bg-orange-500 text-white rounded-full px-1.5 py-0.5 leading-none">{count}</span>
-            )}
-            </button>
-            {/* Mini-cart dropdown */}
-            <div className={`absolute right-0 top-full mt-2 w-80 bg-white text-slate-800 rounded-md shadow-xl border border-slate-200 transition z-50 ${cartHover ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`} onMouseEnter={onCartEnter} onMouseLeave={onCartLeave}>
-              {detailed.length === 0 ? (
-                <div className="p-4 text-sm text-slate-500">Your cart is empty.</div>
-              ) : (
-                <div className="max-h-80 overflow-auto">
-                  <div className="divide-y">
-                    {detailed.map(({item, product}) => (
-                      <div key={item.productId} className="flex items-center gap-3 p-3">
-                        <div className="relative w-12 h-12 bg-slate-100 rounded overflow-hidden">
-                          <Image src={product.images?.[0] || "/placeholder.svg"} alt={product.title} fill className="object-cover" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="text-sm font-medium line-clamp-2">{product.title}</div>
-                          <div className="text-xs text-slate-500">Qty {item.quantity}</div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <div className="text-sm min-w-[64px] text-right">{formatBDT(product.price * item.quantity)}</div>
-                          <button className="p-1 text-slate-400 hover:text-red-500" aria-label="Remove item" onClick={() => remove(item.productId)}>
-                            <X size={16} />
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+          <span className="hidden sm:inline text-sm text-slate-300">{subtotal > 0 ? formatCurrency(subtotal) : ""}</span>
+          <div className="relative">
+            <button className="relative p-2" aria-label="Cart" onClick={openCart}>
+              <ShoppingBag size={20} />
+              {count > 0 && (
+                <span className="absolute -top-1 -right-1 text-[10px] bg-orange-500 text-white rounded-full px-1.5 py-0.5 leading-none">{count}</span>
               )}
-              <div className="p-3 border-t">
-                <div className="flex justify-between text-sm mb-3"><span className="text-slate-600">Subtotal</span><span className="font-semibold">{formatBDT(subtotal)}</span></div>
-                <div className="flex gap-2">
-                  <Link href="/cart" className="flex-1 text-center px-3 py-2 rounded border border-slate-200 hover:bg-slate-50">View Cart</Link>
-                  <Link href="/checkout" className="flex-1 text-center px-3 py-2 rounded bg-orange-500 text-white hover:bg-orange-400">Checkout</Link>
-                </div>
-              </div>
-            </div>
+            </button>
           </div>
         </div>
       </div>

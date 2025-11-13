@@ -4,7 +4,7 @@ import rawProducts from "@/data/products.json";
 import type { Product } from "@/lib/types";
 import { useCart } from "@/stores/cart";
 import { useUI } from "@/stores/ui";
-import { formatPrice } from "@/lib/utils";
+import { formatCurrency } from "@/lib/currency";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -38,7 +38,7 @@ export default function CartDrawer() {
                 <div className="flex justify-between">
                   <div>
                     <p className="font-medium">{product.title}</p>
-                    <p className="text-sm text-slate-600">{formatPrice(product.price)}</p>
+                    <p className="text-sm text-slate-600">{formatCurrency(product.price)}</p>
                   </div>
                   <button className="text-sm text-slate-500" onClick={() => remove(item.productId)}>Remove</button>
                 </div>
@@ -54,7 +54,7 @@ export default function CartDrawer() {
         <div className="p-4 border-t">
           <div className="flex justify-between font-medium">
             <span>Subtotal</span>
-            <span>{formatPrice(subtotal)}</span>
+            <span>{formatCurrency(subtotal)}</span>
           </div>
           <Link href="/checkout" onClick={closeCart} className="mt-3 block text-center bg-sky-600 text-white py-2 rounded">Checkout</Link>
         </div>

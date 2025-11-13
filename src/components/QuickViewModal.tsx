@@ -5,7 +5,7 @@ import type { Product } from "@/lib/types";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { useCart } from "@/stores/cart";
-import { formatPrice } from "@/lib/utils";
+import { formatCurrency } from "@/lib/currency";
 
 export default function QuickViewModal() {
   const { quickViewId, closeQuickView } = useUI();
@@ -33,8 +33,8 @@ export default function QuickViewModal() {
             <h4 className="text-xl font-semibold">{p.title}</h4>
             <p className="mt-2 text-slate-700 text-sm">{p.description}</p>
             <div className="mt-3 flex items-center gap-3">
-              <span className="text-base font-semibold">{formatPrice(p.price)}</span>
-              {p.compareAtPrice && <span className="text-slate-500 line-through">{formatPrice(p.compareAtPrice)}</span>}
+              <span className="text-base font-semibold">{formatCurrency(p.price)}</span>
+              {p.compareAtPrice && <span className="text-slate-500 line-through">{formatCurrency(p.compareAtPrice)}</span>}
             </div>
             <button onClick={()=>{ add(p.id,1); closeQuickView(); }} className="mt-5 bg-slate-900 text-white px-5 py-2 rounded">Add to Cart</button>
           </div>

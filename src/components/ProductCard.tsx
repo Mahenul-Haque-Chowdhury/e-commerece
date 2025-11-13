@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { formatBDT } from "@/lib/utils";
+import { formatCurrency } from "@/lib/currency";
 import type { Product } from "@/lib/types";
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -15,7 +15,7 @@ export default function ProductCard({ product }: { product: Product }) {
           <h3 className="text-lg md:text-xl font-medium leading-tight">
             {product.title}
           </h3>
-          <div className="mt-2 text-base md:text-lg font-semibold">{formatBDT(product.price)}</div>
+          <div className="mt-2 text-base md:text-lg font-semibold">{formatCurrency(product.price)}</div>
         </div>
       </Link>
     </div>

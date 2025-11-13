@@ -74,7 +74,7 @@ export default function Home() {
             ].map((c) => (
             <Link key={c.label} href={c.href} className="group block rounded-md overflow-hidden ring-1 ring-slate-700 hover:ring-orange-500 transition-all">
               <div className="relative w-full aspect-4/3 bg-slate-700">
-                <Image src={c.img} alt={`${c.label} design`} fill sizes="(min-width: 768px) 25vw, 50vw" unoptimized className="object-cover" />
+                <Image src={c.img} alt={`${c.label} design`} fill sizes="(min-width: 768px) 25vw, 50vw" className="object-cover" />
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
                 <div className="absolute inset-x-0 bottom-0 p-3 text-center">
                   <span className="inline-block bg-black/60 px-3 py-1.5 rounded text-white text-sm font-medium tracking-wide uppercase">{c.label}</span>
