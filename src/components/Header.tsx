@@ -9,7 +9,7 @@ import type { CurrencyCode } from "@/lib/currency";
 import { listProducts, searchProducts } from "@/lib/data/products";
 import AccountModal from "./AccountModal";
 import { useCurrency } from "@/stores/currency";
-import type { CartItem } from "@/lib/types";
+import type { CartItem, Product } from "@/lib/types";
 
 type MegaMenuItem = { label: string; href: string; description?: string };
 type MegaMenuColumn = { heading: string; items: MegaMenuItem[] };
@@ -316,110 +316,6 @@ export default function Header() {
     else closeMegaImmediate();
   };
 
-  const megaData: Record<string, { title: string; columns: { heading: string; items: { label: string; href: string }[] }[] }> = {
-    men: {
-      title: "Shop Men",
-      columns: [
-        {
-          heading: "Clothing",
-          items: [
-            { label: "T-Shirts", href: "/shop?category=men&tag=tshirt" },
-            { label: "Shirts", href: "/shop?category=men&tag=shirt" },
-            { label: "Hoodies", href: "/shop?category=men&tag=hoodie" },
-            { label: "Jackets", href: "/shop?category=men&tag=jackets" },
-          ],
-        },
-        {
-          heading: "Bottoms",
-          items: [
-            { label: "Jeans", href: "/shop?category=men&tag=jeans" },
-            { label: "Chinos", href: "/shop?category=men&tag=chinos" },
-            { label: "Shorts", href: "/shop?category=men&tag=shorts" },
-          ],
-        },
-        {
-          heading: "Accessories",
-          items: [
-            { label: "Belts", href: "/shop?category=accessories&tag=belts" },
-            { label: "Caps & Hats", href: "/shop?category=accessories&tag=hats" },
-            { label: "Socks", href: "/shop?category=accessories&tag=socks" },
-          ],
-        },
-      ],
-    },
-    women: {
-      title: "Shop Women",
-      columns: [
-        {
-          heading: "Clothing",
-          items: [
-            { label: "Tops & Tees", href: "/shop?category=women&tag=tops" },
-            { label: "Dresses", href: "/shop?category=women&tag=dresses" },
-            { label: "Hoodies", href: "/shop?category=women&tag=hoodie" },
-            { label: "Outerwear", href: "/shop?category=women&tag=outerwear" },
-          ],
-        },
-        {
-          heading: "Bottoms",
-          items: [
-            { label: "Jeans", href: "/shop?category=women&tag=jeans" },
-            { label: "Skirts", href: "/shop?category=women&tag=skirts" },
-            { label: "Leggings", href: "/shop?category=women&tag=leggings" },
-          ],
-        },
-        {
-          heading: "Accessories",
-          items: [
-            { label: "Bags", href: "/shop?category=accessories&tag=bags" },
-            { label: "Scarves", href: "/shop?category=accessories&tag=scarves" },
-            { label: "Jewelry", href: "/shop?category=accessories&tag=jewelry" },
-          ],
-        },
-      ],
-    },
-    accessories: {
-      title: "Shop Accessories",
-      columns: [
-        {
-          heading: "Essentials",
-          items: [
-            { label: "Hats", href: "/shop?category=accessories&tag=hats" },
-            { label: "Belts", href: "/shop?category=accessories&tag=belts" },
-            { label: "Socks", href: "/shop?category=accessories&tag=socks" },
-          ],
-        },
-        {
-          heading: "Tech",
-          items: [
-            { label: "Phone Cases", href: "/shop?category=accessories&tag=phone" },
-            { label: "Laptop Sleeves", href: "/shop?category=accessories&tag=laptop" },
-          ],
-        },
-      ],
-    },
-    shoes: {
-      title: "Shop Shoes",
-      columns: [
-        {
-          heading: "Styles",
-          items: [
-            { label: "Sneakers", href: "/shop?category=shoes&tag=sneakers" },
-            { label: "Boots", href: "/shop?category=shoes&tag=boots" },
-            { label: "Sandals", href: "/shop?category=shoes&tag=sandals" },
-          ],
-        },
-        {
-          heading: "Purpose",
-          items: [
-            { label: "Casual", href: "/shop?category=shoes&tag=casual" },
-            { label: "Running", href: "/shop?category=shoes&tag=running" },
-            { label: "Hiking", href: "/shop?category=shoes&tag=hiking" },
-          ],
-        },
-      ],
-    },
-  };
-
   const all = useMemo(() => listProducts(), []);
   const detailed = useMemo(() =>
     cartItems
@@ -646,7 +542,7 @@ export default function Header() {
                       <div key={col.heading} className="space-y-3">
                         <div className="text-xs font-semibold text-soft uppercase tracking-wide">{col.heading}</div>
                         <ul className="space-y-2">
-                          {col.items.map((it) => (
+                          {col.items.map((it: MegaMenuItem) => (
                             <li key={it.label}>
                               <Link href={it.href} className="text-xs text-(--foreground) transition hover:text-(--accent)">
                                 <div className="font-medium text-slate-800">{it.label}</div>
