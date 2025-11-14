@@ -80,6 +80,27 @@ body {
 /* Smooth transitions */
 * { transition: color .15s ease, background-color .25s ease, border-color .25s ease, transform .45s var(--motion-ease), box-shadow .35s var(--motion-ease); }
 
+.input-surface {
+  width: 100%;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent 20%);
+  background: color-mix(in srgb, var(--background) 88%, var(--wesell-ink) 12%);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.9rem;
+  font-size: 0.95rem;
+  color: var(--foreground);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.input-surface::placeholder {
+  color: color-mix(in srgb, var(--foreground-soft) 70%, transparent 30%);
+}
+
+.input-surface:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(var(--accent-rgb) / 0.25);
+  outline: none;
+}
+
 @keyframes reveal-up {
   0% { opacity: 0; transform: translateY(24px); }
   60% { opacity: 1; }

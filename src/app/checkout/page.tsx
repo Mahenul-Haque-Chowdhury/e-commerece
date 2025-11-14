@@ -6,6 +6,7 @@ import products from "@/data/products.json";
 import { formatCurrency } from "@/lib/currency";
 import { useCurrency } from "@/stores/currency";
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const shippingOptions = [
   {
@@ -25,6 +26,7 @@ const shippingOptions = [
 export default function CheckoutPage() {
   const { items, clear } = useCart();
   const { currency } = useCurrency();
+  const router = useRouter();
   const detailed = useMemo(
     () =>
       items.map((i) => ({
@@ -41,8 +43,12 @@ export default function CheckoutPage() {
   const shipping = useMemo(() => shippingOptions.find((opt) => opt.id === shippingOption)?.fee ?? 0, [shippingOption]);
   const total = subtotal + shipping;
 
-  const [createAccount, setCreateAccount] = useState(true);
+  const [createAccount, setCreateAccount] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [showCoupon, setShowCoupon] = useState(false);
+  const [couponCode, setCouponCode] = useState("");
+  const inputClass = "input-surface";
+  const cardBrands = ["VISA", "Mastercard", "Amex", "PayPal"];
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
@@ -64,26 +70,52 @@ export default function CheckoutPage() {
               Returning customer? <Link href="/login" className="text-orange-600 hover:text-orange-500">Click here to login</Link>
             </div>
             <div>
-              Have a coupon? <button type="button" className="text-orange-600 hover:text-orange-500">Click here to enter your code</button>
+              Have a coupon? <button type="button" onClick={() => setShowCoupon((prev) => !prev)} className="text-orange-600 hover:text-orange-500">
+                {showCoupon ? "Hide coupon field" : "Click here to enter your code"}
+              </button>
             </div>
+            {showCoupon && (
+              <form
+                className="mt-2 flex flex-col gap-2 sm:flex-row"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  // Placeholder behavior until backend applies discounts.
+                  setCouponCode("");
+                }}
+              >
+                <input
+                  value={couponCode}
+                  onChange={(event) => setCouponCode(event.target.value)}
+                  placeholder="Enter coupon code"
+                  className={`${inputClass} flex-1 text-sm`}
+                />
+                <button type="submit" className="rounded bg-slate-900 px-4 py-2 text-sm font-semibold text-white">
+                  Apply
+                </button>
+              </form>
+            )}
           </div>
           <h1 className="text-xl font-semibold">Billing & Shipping</h1>
           {!submitted ? (
             <form
+              id="checkout-form"
               onSubmit={(e) => {
                 e.preventDefault();
                 setSubmitted(true);
                 clear();
+                router.push("/checkout/payment");
               }}
               className="space-y-4"
             >
-              <input required placeholder="Name" className="border border-slate-300 w-full px-3 py-2 rounded" />
-              <input required type="tel" placeholder="Phone" className="border border-slate-300 w-full px-3 py-2 rounded" />
-              <input type="email" placeholder="Email (optional)" className="border border-slate-300 w-full px-3 py-2 rounded" />
-              <input required placeholder="Full address" className="border border-slate-300 w-full px-3 py-2 rounded" />
+              <div className="grid gap-3 sm:grid-cols-2">
+                <input required placeholder="Name" className={inputClass} />
+                <input required type="tel" placeholder="Phone" className={inputClass} />
+              </div>
+              <input type="email" placeholder="Email (optional)" className={inputClass} />
+              <input required placeholder="Full address" className={inputClass} />
               <div className="grid sm:grid-cols-2 gap-3">
-                <input required placeholder="City" className="border border-slate-300 px-3 py-2 rounded" />
-                <input required placeholder="ZIP Code" className="border border-slate-300 px-3 py-2 rounded" />
+                <input required placeholder="City" className={inputClass} />
+                <input required placeholder="ZIP Code" className={inputClass} />
               </div>
 
               {/* Create account toggle */}
@@ -93,32 +125,28 @@ export default function CheckoutPage() {
               </label>
               {createAccount && (
                 <div className="grid sm:grid-cols-2 gap-3">
-                  <input required placeholder="Username" className="border border-slate-300 px-3 py-2 rounded" />
-                  <input required type="password" placeholder="Password" className="border border-slate-300 px-3 py-2 rounded" />
+                  <input required placeholder="Username" className={inputClass} />
+                  <input required type="password" placeholder="Password" className={inputClass} />
                 </div>
               )}
 
               {/* Payment methods */}
-              <div className="mt-2 border rounded-md divide-y">
-                <label className="flex items-start gap-3 p-3">
-                  <input name="pay" type="radio" defaultChecked />
-                  <div>
-                    <div className="font-medium">Cash on delivery</div>
-                    <div className="text-xs text-slate-500">Pay with cash upon delivery.</div>
-                  </div>
-                </label>
-                <label className="flex items-start gap-3 p-3">
-                  <input name="pay" type="radio" />
-                  <div>
+              <div className="mt-2 border rounded-md">
+                <div className="flex flex-wrap items-center gap-3 p-3">
+                  <div className="flex-1 min-w-[220px]">
                     <div className="font-medium">Pay Online (Credit/Debit)</div>
                     <div className="text-xs text-slate-500">Card/Mobile banking/Net banking.</div>
                   </div>
-                </label>
+                  <div className="flex items-center gap-2">
+                    {cardBrands.map((brand) => (
+                      <span key={brand} className="rounded-full border border-white/20 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-soft">
+                        {brand}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
 
-              <button className="mt-3 inline-flex justify-center w-full sm:w-auto bg-orange-500 hover:bg-orange-400 text-white px-6 py-2.5 font-semibold rounded shadow-sm shadow-orange-500/20">
-                Place Order
-              </button>
             </form>
           ) : (
             <div className="p-4 border rounded bg-slate-50">Thank you! Your mock order has been placed.</div>
@@ -126,61 +154,64 @@ export default function CheckoutPage() {
         </section>
 
         {/* Right: Order summary */}
-        <aside className="border rounded-md p-5 bg-white text-black">
+        <aside className="rounded-3xl border border-white/10 bg-(--background-alt) p-5 text-(--foreground) space-y-5 shadow-[0_35px_90px_-60px_rgba(15,20,40,0.45)]">
           <h2 className="text-lg font-semibold mb-4">Your order</h2>
-          <div className="border rounded-md overflow-hidden">
-            {/* Table header */}
-            <div className="grid grid-cols-[auto_1fr_auto] bg-slate-50 text-xs font-bold uppercase tracking-wide text-black">
-              <div className="px-4 py-3 border-b col-span-2">Product</div>
-              <div className="px-4 py-3 border-b text-right">Subtotal</div>
-            </div>
-            {/* Lines */}
-            <div className="divide-y">
+          <div className="flex flex-col gap-4">
+            <div className="space-y-3">
               {detailed.map(({ item, product }) => (
-                <div key={item.productId} className="grid grid-cols-[auto_1fr_auto] items-center text-sm">
-                  <div className="px-4 py-3">
-                    <div className="relative w-12 h-12 rounded bg-slate-100 overflow-hidden">
-                      <Image src={product.images?.[0] || "/placeholder.svg"} alt={product.title} fill className="object-cover" />
-                    </div>
+                <div key={item.productId} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                  <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl bg-white/10">
+                    <Image src={product.images?.[0] || "/placeholder.svg"} alt={product.title} fill className="object-cover" />
                   </div>
-                  <div className="py-3 pr-4">
-                    <div className="font-medium">{product.title}</div>
-                    <div className="text-xs opacity-70">× {item.quantity}</div>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-(--foreground)">{product.title}</p>
+                    <p className="text-xs text-soft">× {item.quantity}</p>
                   </div>
-                  <div className="px-4 py-3 text-right font-medium">{formatCurrency(product.price * item.quantity, currency)}</div>
+                  <div className="text-sm font-semibold text-(--foreground)">{formatCurrency(product.price * item.quantity, currency)}</div>
                 </div>
               ))}
             </div>
-            {/* Subtotal row */}
-            <div className="grid grid-cols-[auto_1fr_auto]">
-              <div className="px-4 py-3 col-span-2 text-sm">Subtotal</div>
-              <div className="px-4 py-3 text-sm font-medium text-right">{formatCurrency(subtotal, currency)}</div>
-            </div>
-            {/* Shipping options */}
-            <div className="px-4 py-3 border-t space-y-2">
-              <div className="text-sm font-semibold mb-1">Shipping</div>
-              {shippingOptions.map((option) => (
-                <label key={option.id} className="flex items-start gap-2 text-sm border rounded-md px-3 py-2">
-                  <input
-                    type="radio"
-                    name="shipping"
-                    checked={shippingOption === option.id}
-                    onChange={() => setShippingOption(option.id)}
-                  />
-                  <span className="flex-1">
-                    <span className="block font-medium">{option.label}</span>
-                    <span className="text-xs text-slate-500">{option.description}</span>
-                  </span>
-                  <span className="font-medium">{formatCurrency(option.fee, currency)}</span>
-                </label>
-              ))}
-            </div>
-            {/* Total */}
-            <div className="grid grid-cols-[auto_1fr_auto] border-t bg-slate-50">
-              <div className="px-4 py-3 col-span-2 font-semibold">Total</div>
-              <div className="px-4 py-3 font-bold text-right">{formatCurrency(total, currency)}</div>
+
+            <div className="rounded-2xl border border-white/5 bg-white/5 p-4 space-y-2 text-sm">
+              <div className="flex justify-between text-soft">
+                <span>Subtotal</span>
+                <span className="font-semibold text-(--foreground)">{formatCurrency(subtotal, currency)}</span>
+              </div>
+              <div className="space-y-2">
+                <p className="text-xs font-semibold uppercase tracking-wide text-soft">Shipping</p>
+                <div className="space-y-2">
+                  {shippingOptions.map((option) => (
+                    <label key={option.id} className={`flex items-start gap-2 rounded-2xl border px-3 py-2 ${shippingOption === option.id ? "border-(--accent)/40 bg-(--accent)/5" : "border-white/10"}`}>
+                      <input
+                        type="radio"
+                        name="shipping"
+                        checked={shippingOption === option.id}
+                        onChange={() => setShippingOption(option.id)}
+                        className="mt-1"
+                      />
+                      <span className="flex-1 text-xs">
+                        <span className="block text-sm font-semibold text-(--foreground)">{option.label}</span>
+                        <span className="text-soft">{option.description}</span>
+                      </span>
+                      <span className="text-sm font-semibold text-(--foreground)">{formatCurrency(option.fee, currency)}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div className="flex justify-between border-t border-white/10 pt-3 text-base font-semibold">
+                <span>Total</span>
+                <span>{formatCurrency(total, currency)}</span>
+              </div>
             </div>
           </div>
+          <button
+            type="submit"
+            form="checkout-form"
+            disabled={submitted}
+            className={`w-full rounded bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-sm shadow-orange-500/20 transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-600`}
+          >
+            {submitted ? "Order placed" : "Place Order"}
+          </button>
         </aside>
       </div>
     </div>
